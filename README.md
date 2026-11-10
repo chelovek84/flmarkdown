@@ -1,10 +1,10 @@
-# flmarkdown
+# FLMarkDown
 
 **A calm, lightweight Markdown viewer for Linux.**
 
-flmarkdown opens a `.md` file and shows it as a clean, readable page: soft colors, a comfortable line length, and none of a browser's or editor's clutter. It's a single small native program (about 180 KB), built with [FLTK](https://www.fltk.org/) and [md4c](https://github.com/mity/md4c).
+FLMarkDown opens a `.md` file and shows it as a clean, readable page: soft colors, a comfortable line length, and none of a browser's or editor's clutter. It's a single small native program (about 180 KB), built with [FLTK](https://www.fltk.org/) and [md4c](https://github.com/mity/md4c).
 
-![flmarkdown with the Night theme](docs/screenshots/night.png)
+![FLMarkDown with the Night theme](docs/screenshots/night.png)
 
 ![The Paper and Sepia themes side by side](docs/screenshots/paper-sepia.png)
 
@@ -48,7 +48,7 @@ sudo make install
 
 This installs to `/usr/local`: the program, a menu entry (under **Accessories**), icons, and docs.
 
-To make flmarkdown the default app for `.md` files, so a double-click opens it, run this as your normal user, without sudo:
+To make FLMarkDown the default app for `.md` files, so a double-click opens it, run this as your normal user, without sudo:
 
 ```sh
 make default
@@ -70,7 +70,7 @@ flmarkdown --theme paper notes.md
 flmarkdown            # opens a welcome page; press Ctrl+O to pick a file
 ```
 
-You can also drop a file onto the window, or right-click a `.md` file in your file manager and choose **Open With → flmarkdown**.
+You can also drop a file onto the window, or right-click a `.md` file in your file manager and choose **Open With → FLMarkDown**.
 
 Every action is in the **menu bar** (File, Edit, View, Go, Help) and most are also in the **right-click menu**. **Help → Keyboard Shortcuts** (`F1`) shows the full list of keys inside the app.
 
@@ -110,7 +110,7 @@ Settings (theme, text size, window size, menu bar, recent files) are saved in `~
 | `make run FILE=docs/sample.md` | Build and open a file |
 | `sudo make install` | Install the program, menu entry, icons and docs, then refresh the desktop caches |
 | `sudo make uninstall` | Remove everything `install` added |
-| `make default` / `make undefault` | Set or unset flmarkdown as your `.md` viewer (per user, no sudo) |
+| `make default` / `make undefault` | Set or unset FLMarkDown as your `.md` viewer (per user, no sudo) |
 | `make clean` | Remove build files |
 | `make test` | Run the self-test (see [Development](#development)) |
 | `make icons` | Regenerate the icons from `data/icons/flmarkdown.svg` (needs ImageMagick) |
@@ -120,7 +120,7 @@ The standard variables work as usual: `PREFIX`, `DESTDIR` (for packaging), `CXX`
 
 ## What it doesn't do
 
-flmarkdown displays pages with FLTK's built-in HTML widget, which is fast and small but simple. In practice that means:
+FLMarkDown displays pages with FLTK's built-in HTML widget, which is fast and small but simple. In practice that means:
 
 - **No syntax highlighting.** Code is monospace on a shaded background.
 - **No images from the web.** Local images display, scaled to fit. Remote images, such as README badges, are left out.
@@ -157,4 +157,4 @@ Bug reports and pull requests are welcome. If a file renders badly, please attac
 
 [MIT](LICENSE) © 2026 chelovek84
 
-flmarkdown uses [FLTK](https://www.fltk.org/) (LGPL-2.0 with a static-linking exception) and [md4c](https://github.com/mity/md4c) (MIT).
+FLMarkDown uses [FLTK](https://www.fltk.org/) (LGPL-2.0 with a static-linking exception) and [md4c](https://github.com/mity/md4c) (MIT).

@@ -1,6 +1,6 @@
 # Field Notes
 
-A short tour of what **flmarkdown** renders: *emphasis*, **strong text**, `inline code`, ~~strikethrough~~, and [links](https://github.com/chelovek84/flmarkdown) that open in your browser.
+A short tour of what **FLMarkDown** renders: *emphasis*, **strong text**, `inline code`, ~~strikethrough~~, and [links](https://github.com/chelovek84/flmarkdown) that open in your browser.
 
 ## Getting started
 

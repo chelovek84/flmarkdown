@@ -1,4 +1,4 @@
-// flmarkdown - a calm, fast Markdown viewer (FLTK 1.4 + md4c).
+// FLMarkDown - a calm, fast Markdown viewer (FLTK 1.4 + md4c).
 
 #include "icon_data.h"
 #include "render.h"
@@ -348,7 +348,7 @@ class FindBar : public Fl_Group {
 
 class MainWin : public Fl_Double_Window {
  public:
-  MainWin(int w, int h) : Fl_Double_Window(w, h, "flmarkdown") {}
+  MainWin(int w, int h) : Fl_Double_Window(w, h, "FLMarkDown") {}
   void resize(int X, int Y, int W, int H) override {
     Fl_Double_Window::resize(X, Y, W, H);
     layout();
@@ -460,7 +460,7 @@ static void apply_theme() {
 // ---------------------------------------------------------------- built-in pages
 
 static const char *kWelcome =
-    "# flmarkdown\n\n"
+    "# FLMarkDown\n\n"
     "A calm Markdown viewer.\n\n"
     "- **Open a file** with *File \xe2\x86\x92 Open* (`Ctrl+O`), "
     "by dropping it onto this window, or from your file manager's *Open With* menu.\n"
@@ -500,7 +500,7 @@ static const char *kKeys =
     "| `F1` | This page |\n";
 
 static std::string about_page() {
-  return std::string("# flmarkdown ") + FLMD_VERSION +
+  return std::string("# FLMarkDown ") + FLMD_VERSION +
          "\n\n"
          "A calm, lightweight Markdown viewer for Linux.\n\n"
          "- Source code: <https://github.com/chelovek84/flmarkdown>\n"
@@ -526,9 +526,9 @@ static bool read_file(const std::string &p, std::string &out, struct stat &st) {
 
 static void set_title() {
   static std::string title;
-  if (app.path == "flmd:keys") title = "Keyboard Shortcuts \xe2\x80\x94 flmarkdown";
-  else if (app.path == "flmd:about") title = "About \xe2\x80\x94 flmarkdown";
-  else if (is_internal(app.path)) title = "flmarkdown";
+  if (app.path == "flmd:keys") title = "Keyboard Shortcuts \xe2\x80\x94 FLMarkDown";
+  else if (app.path == "flmd:about") title = "About \xe2\x80\x94 FLMarkDown";
+  else if (is_internal(app.path)) title = "FLMarkDown";
   else title = basename_of(app.path) + "  \xe2\x80\x94  " + tilde(dirname_of(app.path));
   app.win->label(title.c_str());
 }
@@ -978,7 +978,7 @@ static void build_menubar() {
   add("&Go/B&ottom", FL_End, A_BOTTOM);
 
   add("&Help/&Keyboard Shortcuts", FL_F + 1, A_KEYS);
-  add("&Help/&About flmarkdown", 0, A_ABOUT);
+  add("&Help/&About FLMarkDown", 0, A_ABOUT);
   m->redraw();
 }
 
@@ -1200,7 +1200,7 @@ int main(int argc, char **argv) {
       printf("usage: %s [--theme night|paper|sepia] [file.md]\n", argv[0]);
       return 0;
     }
-    if (!strcmp(argv[i], "--version")) { printf("flmarkdown %s\n", FLMD_VERSION); return 0; }
+    if (!strcmp(argv[i], "--version")) { printf("FLMarkDown %s\n", FLMD_VERSION); return 0; }
     if (!strcmp(argv[i], "--check")) { check_only = true; app.remember = false; continue; }  // layout test, no window
     if (!strcmp(argv[i], "--theme") && i + 1 < argc) {
       ++i;

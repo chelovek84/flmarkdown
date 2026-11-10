@@ -1,10 +1,10 @@
-# flmarkdown - plain old Makefile
+# FLMarkDown - plain old Makefile
 #
 #   make                   build ./flmarkdown
 #   make run [FILE=x.md]   build and run
 #   make install           install program, menu entry, icons (use sudo)
 #   make uninstall         remove everything 'install' put there (use sudo)
-#   make default           make flmarkdown your default .md viewer (no sudo)
+#   make default           make FLMarkDown your default .md viewer (no sudo)
 #   make undefault         undo 'make default' (no sudo)
 #   make test              self-test every menu action (needs a display)
 #   make clean             remove objects and binary
@@ -79,7 +79,7 @@ install: $(PROG)
 	$(INSTALL) -Dm644 README.md $(DESTDIR)$(DOCDIR)/README.md
 	$(refresh_caches)
 	@echo
-	@echo "Installed. flmarkdown is now in the menu (Accessories) and in"
+	@echo "Installed. FLMarkDown is now in the menu (Accessories) and in"
 	@echo "'Open With' for .md files in Thunar and SpaceFM."
 	@echo "To open .md files with it on double-click, run (without sudo):  make default"
 
