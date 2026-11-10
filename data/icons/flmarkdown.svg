@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <!-- tile: the Night theme background -->
-  <rect x="8" y="8" width="112" height="112" rx="26" ry="26" fill="#2e3440"/>
-  <!-- soft page shadow -->
-  <path d="M36 28 H80 L98 46 V104 A6 6 0 0 1 92 110 H36 A6 6 0 0 1 30 104 V34 A6 6 0 0 1 36 28 Z" fill="#000000" fill-opacity="0.22"/>
-  <!-- page (Sepia paper) with folded corner -->
-  <path d="M36 22 H78 L98 42 V100 A6 6 0 0 1 92 106 H36 A6 6 0 0 1 30 100 V28 A6 6 0 0 1 36 22 Z" fill="#f6eedc"/>
-  <path d="M78 22 V36 A6 6 0 0 0 84 42 H98 Z" fill="#dfcfac"/>
+  <!-- soft shadow under the page -->
+  <path d="M26 14 H84 L110 40 V114 A8 8 0 0 1 102 122 H26 A8 8 0 0 1 18 114 V22 A8 8 0 0 1 26 14 Z" fill="#000000" fill-opacity="0.18"/>
+  <!-- page (Sepia paper) with a warm edge -->
+  <path d="M26 8 H84 L110 34 V110 A8 8 0 0 1 102 118 H26 A8 8 0 0 1 18 110 V16 A8 8 0 0 1 26 8 Z" fill="#b39c70"/>
+  <path d="M26 10 H83 L108 35 V110 A6 6 0 0 1 102 116 H26 A6 6 0 0 1 20 110 V16 A6 6 0 0 1 26 10 Z" fill="#f6eedc"/>
+  <!-- folded corner -->
+  <path d="M83 10 V28 A7 7 0 0 0 90 35 H108 Z" fill="#dccaa3"/>
   <!-- heading mark "#" in the Paper accent blue -->
   <g fill="#2d68b0">
-    <polygon points="45,38 50,38 46,62 41,62"/>
-    <polygon points="56,38 61,38 57,62 52,62"/>
-    <rect x="39" y="44" width="25" height="5" rx="1"/>
-    <rect x="38" y="52" width="25" height="5" rx="1"/>
+    <polygon points="39,30 46,30 41,62 34,62"/>
+    <polygon points="54,30 61,30 56,62 49,62"/>
+    <rect x="31" y="37" width="34" height="7" rx="1.5"/>
+    <rect x="30" y="49" width="34" height="7" rx="1.5"/>
   </g>
   <!-- text lines -->
-  <g fill="#c9b691">
-    <rect x="40" y="70" width="48" height="6" rx="3" ry="3"/>
-    <rect x="40" y="81" width="42" height="6" rx="3" ry="3"/>
-    <rect x="40" y="92" width="28" height="6" rx="3" ry="3"/>
+  <g fill="#c4ae84">
+    <rect x="32" y="74" width="62" height="7" rx="3.5"/>
+    <rect x="32" y="87" width="54" height="7" rx="3.5"/>
+    <rect x="32" y="100" width="36" height="7" rx="3.5"/>
   </g>
 </svg>
