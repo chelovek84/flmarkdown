@@ -104,6 +104,11 @@ void build() {
     check(!app.view->text_selected(), "nothing selected at start");
     do_action(A_SELECT_ALL);
     check(app.view->text_selected(), "Edit > Select All selects the text");
+    // A closing menu releases its keyboard grab, and X then reports focus
+    // leaving and returning - after the menu's action already ran.
+    Fl::handle(FL_UNFOCUS, app.win);
+    Fl::handle(FL_FOCUS, app.win);
+    check(app.view->text_selected(), "...and stays selected when a menu closes (focus out and back)");
     do_action(A_COPY);
     std::string c = clipboard();
     check(c.find("calm, lightweight Markdown viewer") != std::string::npos &&

@@ -343,6 +343,14 @@ class View : public Fl_Help_View {
     switch (e) {
       case FL_DND_ENTER: case FL_DND_DRAG: case FL_DND_LEAVE: case FL_DND_RELEASE:
         return 1;
+      case FL_UNFOCUS:
+        // Fl_Help_View drops its selection on losing focus, but focus also
+        // blinks out and back when a menu closes (X sends focus events as
+        // the menu releases its keyboard grab) - after the menu's action
+        // ran. So Edit > Select All from a menu selected nothing, and a menu
+        // Find Next lost its highlight. Keep the selection, like most apps.
+        redraw();
+        return 1;
       case FL_PUSH:
         if (Fl::event_button() == FL_RIGHT_MOUSE) {
           // Keep an existing selection (so "Copy" works); otherwise look for a link.
