@@ -6,7 +6,7 @@ FLMarkDown opens a `.md` file and shows it as a clean, readable page: soft color
 
 ![FLMarkDown with the Night theme](docs/screenshots/night.png)
 
-![The Paper and Sepia themes side by side](docs/screenshots/paper-sepia.png)
+![The Paper theme (top) and the Sepia theme (bottom)](docs/screenshots/paper-sepia.png)
 
 ## Features
 
