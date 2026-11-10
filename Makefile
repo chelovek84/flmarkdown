@@ -125,10 +125,18 @@ clean:
 
 # Maintainer target: needs ImageMagick and python3. The results are committed,
 # so normal builds and installs don't need these tools.
+# 16 and 24 have hand-tuned, pixel-aligned sources (data/icons/$(PROG)-16.svg
+# and -24.svg). They are rendered at 32x and block-averaged down, which keeps
+# 1px details sharp. Every other size is rendered from the main SVG.
 icons: data/icons/$(PROG).svg
 	for s in $(ICON_SIZES); do \
-		convert -background none -density $$((s * 2 * 96 / 128)) $< -resize $${s}x$${s} \
-			PNG32:data/icons/$(PROG)-$$s.png || exit 1; \
+		if [ -f data/icons/$(PROG)-$$s.svg ]; then \
+			convert -background none -density 3072 data/icons/$(PROG)-$$s.svg -scale $${s}x$${s} \
+				PNG32:data/icons/$(PROG)-$$s.png || exit 1; \
+		else \
+			convert -background none -density $$((s * 2 * 96 / 128)) $< -resize $${s}x$${s} \
+				PNG32:data/icons/$(PROG)-$$s.png || exit 1; \
+		fi; \
 	done
 	python3 tools/embed.py data/icons/$(PROG)-64.png src/icon_data.h icon_png
 

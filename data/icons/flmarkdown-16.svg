@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hand-tuned 16x16 version of flmarkdown.svg (pixel-aligned). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <rect x="0" y="0" width="16" height="16" rx="3" ry="3" fill="#2e3440"/>
+  <path d="M3 2 H10 L13 5 V14 H3 Z" fill="#f6eedc"/>
+  <path d="M10 2 V5 H13 Z" fill="#dfcfac"/>
+  <rect x="5" y="5" width="4" height="2" fill="#2d68b0"/>
+  <rect x="5" y="9" width="6" height="1" fill="#b5a07a"/>
+  <rect x="5" y="11" width="4" height="1" fill="#b5a07a"/>
+</svg>

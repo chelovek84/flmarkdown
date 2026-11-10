@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <!-- tile -->
-  <rect x="6" y="6" width="116" height="116" rx="24" ry="24" fill="#262b33"/>
-  <!-- page with folded corner -->
-  <polygon points="28,16 82,16 102,36 102,112 28,112" fill="#f3ead7"/>
-  <polygon points="82,16 82,36 102,36" fill="#d9c9a6"/>
-  <!-- heading line -->
-  <rect x="36" y="28" width="36" height="6" rx="3" ry="3" fill="#c6b38d"/>
-  <!-- Markdown mark: M -->
-  <polygon points="36,88 36,48 46,48 53,60 60,48 70,48 70,88 60,88 60,66 53,77 46,66 46,88" fill="#2d68b0"/>
-  <!-- down arrow -->
-  <rect x="79" y="48" width="10" height="24" fill="#2d68b0"/>
-  <polygon points="72,70 96,70 84,88" fill="#2d68b0"/>
-  <!-- text line -->
-  <rect x="36" y="98" width="56" height="6" rx="3" ry="3" fill="#c6b38d"/>
+  <!-- tile: the Night theme background -->
+  <rect x="8" y="8" width="112" height="112" rx="26" ry="26" fill="#2e3440"/>
+  <!-- soft page shadow -->
+  <path d="M36 28 H80 L98 46 V104 A6 6 0 0 1 92 110 H36 A6 6 0 0 1 30 104 V34 A6 6 0 0 1 36 28 Z" fill="#000000" fill-opacity="0.22"/>
+  <!-- page (Sepia paper) with folded corner -->
+  <path d="M36 22 H78 L98 42 V100 A6 6 0 0 1 92 106 H36 A6 6 0 0 1 30 100 V28 A6 6 0 0 1 36 22 Z" fill="#f6eedc"/>
+  <path d="M78 22 V36 A6 6 0 0 0 84 42 H98 Z" fill="#dfcfac"/>
+  <!-- heading mark "#" in the Paper accent blue -->
+  <g fill="#2d68b0">
+    <polygon points="45,38 50,38 46,62 41,62"/>
+    <polygon points="56,38 61,38 57,62 52,62"/>
+    <rect x="39" y="44" width="25" height="5" rx="1"/>
+    <rect x="38" y="52" width="25" height="5" rx="1"/>
+  </g>
+  <!-- text lines -->
+  <g fill="#c9b691">
+    <rect x="40" y="70" width="48" height="6" rx="3" ry="3"/>
+    <rect x="40" y="81" width="42" height="6" rx="3" ry="3"/>
+    <rect x="40" y="92" width="28" height="6" rx="3" ry="3"/>
+  </g>
 </svg>
