@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=flmarkdown
+GenericName=Markdown Viewer
+Comment=Read Markdown files in a calm, distraction-free window
+Keywords=markdown;md;readme;viewer;reader;
+Exec=flmarkdown %f
+TryExec=flmarkdown
+Icon=flmarkdown
+Terminal=false
+StartupNotify=true
+StartupWMClass=flmarkdown
+MimeType=text/markdown;text/x-markdown;
+Categories=Utility;TextTools;

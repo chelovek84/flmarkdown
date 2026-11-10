@@ -1,0 +1,5 @@
+# build output
+/obj/
+/flmarkdown
+/flmarkdown-selftest
+/tests/xdg-open.log

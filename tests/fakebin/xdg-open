@@ -1,0 +1,4 @@
+#!/bin/sh
+# Stand-in for xdg-open during "make test": records what would have been
+# opened instead of launching anything.
+printf '%s\n' "$1" >> "${FLMD_XDG_LOG:-/dev/null}"

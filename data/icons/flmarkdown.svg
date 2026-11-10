@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- tile -->
+  <rect x="6" y="6" width="116" height="116" rx="24" ry="24" fill="#262b33"/>
+  <!-- page with folded corner -->
+  <polygon points="28,16 82,16 102,36 102,112 28,112" fill="#f3ead7"/>
+  <polygon points="82,16 82,36 102,36" fill="#d9c9a6"/>
+  <!-- heading line -->
+  <rect x="36" y="28" width="36" height="6" rx="3" ry="3" fill="#c6b38d"/>
+  <!-- Markdown mark: M -->
+  <polygon points="36,88 36,48 46,48 53,60 60,48 70,48 70,88 60,88 60,66 53,77 46,66 46,88" fill="#2d68b0"/>
+  <!-- down arrow -->
+  <rect x="79" y="48" width="10" height="24" fill="#2d68b0"/>
+  <polygon points="72,70 96,70 84,88" fill="#2d68b0"/>
+  <!-- text line -->
+  <rect x="36" y="98" width="56" height="6" rx="3" ry="3" fill="#c6b38d"/>
+</svg>
