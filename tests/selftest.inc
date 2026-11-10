@@ -112,6 +112,55 @@ void build() {
     app.view->clear_selection();
   });
 
+  // ---- Double-click selects a word
+  step([] {
+    std::ifstream in(doc);
+    std::stringstream ss;
+    ss << in.rdbuf();
+    std::string src = ss.str();
+    int words = 0, bad = 0, code = 0, code_bad = 0;
+    std::string bad_list;
+    for (int top = 0; top < app.view->size(); top += app.view->h() - 40) {
+      app.view->topline(top);
+      app.view->redraw();
+      Fl::flush();
+      for (int y = app.view->y() + 20; y < app.view->y() + app.view->h() - 20; y += 9) {
+        for (int x = app.view->x() + 20; x < app.view->x() + app.view->w() - 30; x += 37) {
+          // A double-click as FLTK delivers it. The release is not a "click",
+          // so a link under the pointer is not followed.
+          Fl::e_x = x, Fl::e_y = y, Fl::e_x_root = x, Fl::e_y_root = y;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          Fl::e_clicks = 1, Fl::e_is_click = 1;
+          app.view->handle(FL_PUSH);
+          Fl::e_is_click = 0;
+          app.view->handle(FL_RELEASE);
+          Fl::e_clicks = 0;
+          if (!app.view->text_selected()) continue;
+          do_action(A_COPY);
+          std::string w = clipboard();
+          bool pre = inside_pre(app.view->value(), app.word.first);
+          bool ok = !w.empty() && w == app.word.text && w == trim(w) &&
+                    w.find("&amp;") == std::string::npos && w.find("&nbsp;") == std::string::npos &&
+                    (pre || w.find(' ') == std::string::npos) && src.find(w) != std::string::npos;
+          words++;
+          if (pre) { code++; if (!ok) code_bad++; }
+          if (!ok) { bad++; if (bad_list.size() < 200) bad_list += " [" + w + "]"; }
+          app.view->clear_selection();
+        }
+      }
+    }
+    app.view->topline(0);
+    check(words >= 30 && bad == 0,
+          "double-click selects and copies a single word (" + std::to_string(words) + " tried)" + bad_list);
+    check(code > 0 && code_bad == 0,
+          "double-click in a code block copies without a leading newline (" + std::to_string(code) + " tried)");
+    const char *h = "<p>R&amp;D&nbsp;lab, x</p><pre>\n  a &lt; b\n</pre>";
+    int w1 = 3, w2 = (int)(strstr(h, "\n  a") - h);
+    check(plain_text(h + w1, h + piece_end(h, w1, inside_pre(h, w1))) == "R&D lab," &&
+              trim(plain_text(h + w2, h + piece_end(h, w2, inside_pre(h, w2)))) == "a < b",
+          "a double-clicked word keeps its entities whole (\"R&D lab,\", \"a < b\")");
+  });
+
   // ---- Find
   step([] {
     do_action(A_FIND);

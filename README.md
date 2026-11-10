@@ -127,6 +127,7 @@ FLMarkDown displays pages with FLTK's built-in HTML widget, which is fast and sm
 - **No math rendering.** `$…$` math is shown as text.
 - **Fixed line spacing and heading sizes.**
 - **Wrapped code.** Code lines that don't fit are wrapped rather than scrolled sideways. Inside lists and quotes, tables are drawn as aligned plain text.
+- **Selection by whole words.** Dragging selects whole words, not single characters; double-click selects one word (in a code block, the whole line).
 
 It's meant for *reading* READMEs, notes and docs, not as a full browser-grade renderer. If you need pixel-perfect GitHub rendering, a WebKit-based viewer is a better fit.
 

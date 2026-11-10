@@ -28,6 +28,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include <spawn.h>
@@ -148,6 +149,7 @@ static const char *kInternal = "flmd:";
 static bool is_internal(const std::string &p) { return p.compare(0, 5, kInternal) == 0; }
 
 struct HistEntry { std::string path; int top; };
+struct WordSel { int first = 0, last = 0; std::string text; };  // a double-clicked word
 
 class View;
 class FindBar;
@@ -177,6 +179,7 @@ static struct {
   std::string probe_uri;
   int rendered_w = 0;         // view width the current page was laid out for
   bool remember = true;       // record opened files in "Open Recent" (off for --check)
+  WordSel word;               // last double-clicked word (its HTML range and clean text)
 } app;
 
 static void render(bool keep_scroll);
@@ -249,6 +252,47 @@ static int match_end(const char *html, int start, const std::string &needle) {
   return p;
 }
 
+// ---------------------------------------------------------------- double-click
+
+// Is HTML position `p` inside a <pre> block?
+static bool inside_pre(const char *html, int p) {
+  std::string_view before(html, p);
+  size_t open = before.rfind("<pre"), close = before.rfind("</pre");
+  return open != std::string_view::npos && (close == std::string_view::npos || close < open);
+}
+
+// Fl_Help_View draws text in pieces and selects whole pieces. A piece that
+// starts at `p` ends at the next tag, and at the next space (or, inside
+// <pre>, the next newline; a <pre> line's piece starts at the newline
+// before it). Entities are part of the piece.
+static int piece_end(const char *html, int p, bool pre) {
+  if (pre && html[p] == '\n') p++;
+  while (html[p] && html[p] != '<' &&
+         !(pre ? html[p] == '\n' : isspace((unsigned char)html[p])))
+    p++;
+  return p;
+}
+
+// The text of a piece of our HTML (no tags; only the entities render.cpp emits).
+static std::string plain_text(const char *s, const char *end) {
+  static const struct { const char *e; const char *c; } ents[] = {
+      {"&amp;", "&"}, {"&lt;", "<"}, {"&gt;", ">"}, {"&quot;", "\""}, {"&nbsp;", " "}};
+  std::string o;
+  while (s < end) {
+    bool done = false;
+    if (*s == '&')
+      for (auto &x : ents)
+        if (!strncmp(s, x.e, strlen(x.e))) { o += x.c; s += strlen(x.e); done = true; break; }
+    if (!done) o += *s++;
+  }
+  return o;
+}
+
+static std::string trim(const std::string &s) {
+  size_t a = s.find_first_not_of(" \t\r\n"), b = s.find_last_not_of(" \t\r\n");
+  return a == std::string::npos ? "" : s.substr(a, b - a + 1);
+}
+
 // ---------------------------------------------------------------- widgets
 
 class View : public Fl_Help_View {
@@ -275,6 +319,26 @@ class View : public Fl_Help_View {
     return app.probe_uri;
   }
 
+  // After Fl_Help_View handled a push: if it was on text (not a link or
+  // empty space), select the word it found there.
+  void select_pushed_word() {
+    int first = *get(hv::PushFirst{});
+    if (*get(hv::CurrentView{}) != this || *get(hv::PushLast{}) <= first) return;
+    const char *html = value();
+    bool pre = inside_pre(html, first);
+    int last = piece_end(html, first, pre);
+    std::string text = trim(plain_text(html + first, html + last));
+    if (text.empty()) return;
+    select_range(this, first, last);
+    app.word = {first, last, text};
+    take_focus();  // so Ctrl+C reaches us, and losing focus clears it
+  }
+
+  bool word_selected() {
+    return text_selected() && !app.word.text.empty() &&
+           *get(hv::SelFirst{}) == app.word.first && *get(hv::SelLast{}) == app.word.last;
+  }
+
   int handle(int e) override {
     switch (e) {
       case FL_DND_ENTER: case FL_DND_DRAG: case FL_DND_LEAVE: case FL_DND_RELEASE:
@@ -286,6 +350,14 @@ class View : public Fl_Help_View {
           show_context_menu(link);
           return 1;
         }
+        if (Fl::event_button() == FL_LEFT_MOUSE && Fl::event_clicks() > 0) {
+          // Double-click. Fl_Help_View's own push finds the word under the
+          // pointer (or presses a link); then that word becomes the selection.
+          clear_selection();
+          int r = Fl_Help_View::handle(e);
+          select_pushed_word();
+          return r;
+        }
         return Fl_Help_View::handle(e);
       case FL_RELEASE: {
         if (Fl::event_button() == FL_RIGHT_MOUSE) return 1;
@@ -296,6 +368,9 @@ class View : public Fl_Help_View {
         app.clicking = true;
         int r = Fl_Help_View::handle(e);
         app.clicking = false;
+        // Releasing put Fl_Help_View's version of the text on the X selection;
+        // a double-clicked word has a cleaner one.
+        if (word_selected()) Fl::copy(app.word.text.c_str(), (int)app.word.text.size(), 0);
         return r;
       }
       case FL_PASTE: {
@@ -862,7 +937,10 @@ static void scroll_by(int dy) {
   app.view->topline(t);
 }
 
-static void copy_selection() { if (app.view->text_selected()) app.view->copy(1); }
+static void copy_selection() {
+  if (app.view->word_selected()) Fl::copy(app.word.text.c_str(), (int)app.word.text.size(), 1);
+  else if (app.view->text_selected()) app.view->copy(1);
+}
 static void open_folder() { if (!is_internal(app.path)) xdg_open(dirname_of(app.path)); }
 static void copy_path() { if (!is_internal(app.path)) copy_text(app.path); }
 
